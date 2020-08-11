@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:youtubeFlutter/delegates/data_search.dart';
 
 class HomeScreen extends StatelessWidget {
+  String pesquisa = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,13 +14,15 @@ class HomeScreen extends StatelessWidget {
               Icons.search,
               color: Colors.white,
             ),
-            onPressed: () {
-              showSearch(
+            onPressed: () async {
+              String searchResult = await showSearch(
                 context: context,
                 delegate: DataSearch(),
               );
+
+              pesquisa = searchResult;
             },
-            splashColor: Colors.black,
+            splashColor: Colors.redAccent,
           ),
 
           //favoritos
@@ -29,7 +32,7 @@ class HomeScreen extends StatelessWidget {
               color: Colors.amberAccent,
             ),
             onPressed: () {},
-            splashColor: Colors.black,
+            splashColor: Colors.redAccent,
           ),
 
           Container(
@@ -62,9 +65,14 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
         elevation: 0,
-        backgroundColor: Colors.black54,
+        backgroundColor: Colors.grey[800],
       ),
-      body: Container(),
+      body: Container(
+        child: ListTile(
+          title: Text(pesquisa),
+          leading: Icon(Icons.cake),
+        ),
+      ),
     );
   }
 }
