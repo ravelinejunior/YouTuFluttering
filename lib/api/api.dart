@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:youtubeFlutter/model/video.dart';
 
-const API_KEY = "AIzaSyB6_tXXU4IIqajs4qjgSeKHd8CUvA9AJK8";
+const API_KEY = "AIzaSyA5CUC39n7taTZJQqRec3oPskdyrM7lvgc";
 
 class Api {
   //metodo de busca
@@ -12,13 +12,13 @@ class Api {
       //codigo de requisição
       "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$search&type=video&key=$API_KEY&maxResults=10",
     );
-    decode(response);
+    return decode(response);
   }
 
   //decodificador
-  decode(http.Response response) {
+  List<Video> decode(http.Response response) {
     //verificar se dados foram recebidos
-    if (response.statusCode == 200 || response.statusCode == 201) {
+    if (response.statusCode == 200) {
       //ler dados
       var decoded = json.decode(response.body);
       //transformar json em listas de videos(em forma de objetos video)
@@ -29,7 +29,9 @@ class Api {
         },
       ).toList();
 
-      print("Chupar e transar " + videos.toString());
+      return videos;
+    } else {
+      throw Exception("Failed to load videos");
     }
   }
 }
