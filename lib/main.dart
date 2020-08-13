@@ -1,13 +1,11 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
-import 'package:youtubeFlutter/api/api.dart';
+import 'package:youtubeFlutter/blocs/favorite_bloc.dart';
+
 import 'package:youtubeFlutter/blocs/videos_bloc.dart';
 import 'package:youtubeFlutter/screens/home_screen.dart';
 
 void main() {
-  /* Api api = Api();
-  api.search("Gostosas"); */
-
   runApp(MyApp());
 }
 
@@ -18,6 +16,7 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       blocs: [
         Bloc((i) => VideosBloc()),
+        Bloc((j) => FavoriteBloc()),
       ],
       child: MaterialApp(
         title: 'RaveTube',

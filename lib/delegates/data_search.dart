@@ -5,6 +5,9 @@ import 'package:http/http.dart' as http;
 
 class DataSearch extends SearchDelegate<String> {
   @override
+  String get searchFieldLabel => 'Digite algo aqui';
+
+  @override
   List<Widget> buildActions(BuildContext context) {
     // botoes a direita durante pesquisa
 

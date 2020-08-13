@@ -25,9 +25,16 @@ class VideosBloc implements BlocBase {
 
 //função de busca de videos
   void _search(String search) async {
-    videos = await api.search(search);
+    if (search != null) {
+      //enviar uma lista vazia para quando houver uma nova pesquisa, começar do zero
+      videosStreamControlller.sink.add([]);
+      videos = await api.search(search);
+    } else {
+      //retorna proximos 10 livros
+      videos += await api.nextPage();
+    }
+
     videosStreamControlller.sink.add(videos);
-    print(videos);
   }
 
   @override
@@ -37,21 +44,23 @@ class VideosBloc implements BlocBase {
   }
 
   @override
-  void addListener(listener) {
-    // TODO: implement addListener
-  }
+  void addListener(listener) {}
 
   @override
-  // TODO: implement hasListeners
   bool get hasListeners => throw UnimplementedError();
 
   @override
-  void notifyListeners() {
-    // TODO: implement notifyListeners
-  }
+  void notifyListeners() {}
 
   @override
-  void removeListener(listener) {
-    // TODO: implement removeListener
-  }
+  void removeListener(listener) {}
 }
+
+@override
+bool get hasListeners => throw UnimplementedError();
+
+@override
+void notifyListeners() {}
+
+@override
+void removeListener(listener) {}
