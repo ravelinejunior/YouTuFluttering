@@ -11,14 +11,13 @@ class Video {
   factory Video.fromJson(Map<String, dynamic> json) {
     if (json.containsKey('id'))
       return Video(
-        id: json['id']['videoId'],
-        title: json['snippet']['title'],
-        channel: json['snippet']['channelTitle'],
-        thumb: json['snippet']['thumbnails']['high']['url'],
-      );
+          id: json['id']['videoId'],
+          title: json['snippet']['title'],
+          channel: json['snippet']['channelTitle'],
+          thumb: json['snippet']['thumbnails']['high']['url']);
     else
       return Video(
-          id: json['id'],
+          id: json['videoId'],
           title: json['title'],
           thumb: json['thumb'],
           channel: json['channel']);

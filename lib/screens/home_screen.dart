@@ -4,6 +4,7 @@ import 'package:youtubeFlutter/blocs/favorite_bloc.dart';
 import 'package:youtubeFlutter/blocs/videos_bloc.dart';
 import 'package:youtubeFlutter/delegates/data_search.dart';
 import 'package:youtubeFlutter/model/video.dart';
+import 'package:youtubeFlutter/screens/favorites_screen.dart';
 import 'package:youtubeFlutter/widgets/video_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -42,7 +43,10 @@ class _HomeScreenState extends State<HomeScreen> {
               Icons.star,
               color: Colors.amberAccent,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => FavoritesScreen()));
+            },
             splashColor: Colors.redAccent,
           ),
 

@@ -8,6 +8,12 @@ import 'package:youtubeFlutter/model/video.dart';
 class FavoriteBloc implements BlocBase {
   final String KEY_FAVORITES = "FAVORITES";
 
+  Map<String, Video> _favorites = {};
+
+  final _favController = BehaviorSubject<Map<String, Video>>.seeded({});
+
+  Stream<Map<String, Video>> get outFav => _favController.stream;
+
   //construtor recuperando sharedpref
   FavoriteBloc() {
     SharedPreferences.getInstance().then((prefs) {
@@ -24,12 +30,6 @@ class FavoriteBloc implements BlocBase {
       }
     });
   }
-
-  Map<String, Video> _favorites = {};
-
-  final _favController = BehaviorSubject<Map<String, Video>>.seeded({});
-
-  Stream<Map<String, Video>> get outFav => _favController.stream;
 
   //função de marcar e desmarcar
   void toggleFavorite(Video video) {
