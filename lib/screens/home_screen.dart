@@ -1,7 +1,9 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:youtubeFlutter/blocs/favorite_bloc.dart';
 import 'package:youtubeFlutter/blocs/videos_bloc.dart';
 import 'package:youtubeFlutter/delegates/data_search.dart';
+import 'package:youtubeFlutter/model/video.dart';
 import 'package:youtubeFlutter/widgets/video_tile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -12,6 +14,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   String pesquisa = "Empty";
   final bloc = BlocProvider.getBloc<VideosBloc>();
+  final blocFav = BlocProvider.getBloc<FavoriteBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +50,18 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.only(right: 16),
             child: Align(
               alignment: Alignment.center,
-              child: Text("0"),
+              child: StreamBuilder<Map<String, Video>>(
+                  stream: blocFav.outFav,
+                  builder: (context, snapshot) {
+                    //recuperar quantidade de favoritos
+                    if (snapshot.hasData)
+                      return Text("${snapshot.data.length}");
+                    else
+                      return CircularProgressIndicator(
+                        valueColor:
+                            AlwaysStoppedAnimation<Color>(Colors.redAccent),
+                      );
+                  }),
             ),
           ),
         ],
